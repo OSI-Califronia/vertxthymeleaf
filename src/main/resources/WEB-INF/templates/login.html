@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>NIC-place</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+    <link rel="stylesheet" href="/WEB-INF/css/bootstrap.min.css.map" />
+    <link rel="stylesheet" href="/WEB-INF/css/nic.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+<div class="full nicplace">
+    <div class="animated-background-color">
+        <div class="animated-div"></div>
+    </div>
+    <div class="col-xs-12 col-sm-8 col-md-4 col-lg-4 col-sm-offset-2 col-md-offset-1 col-lg-offset-1">
+        <div class="panel">
+            <div class="panel-body">
+                <form method="post" action="/oauth/login?">
+                    <div class="text-center margin-top-bottom">
+                        <img src="/WEB-INF/images/nicplace.png" alt="NIC-place logo" title="NIC-place logo" />
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+                        <input class="form-control input-lg bottom_spacing filled" type="email" id="email" name="username" required="required" />
+                        <label class="form-control-placeholder" for="email"> Benutzer </label>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+                        <input class="form-control input-lg bottom_spacing filled" type="password" id="password" name="password" required="required" />
+                        <label class="form-control-placeholder" for="password"> Passwort </label>
+                    </div>
+
+                    <div class="col-xs-12 spacer"></div>
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-4">
+                        <input class="btn btn-primary btn-block" type="submit" value="Login" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden-xs hidden-sm col-md-7 col-lg-7">
+        <p>Your digital</p>
+        <p>place to be</p>
+        <p>for logistics</p>
+    </div>
+</div>
+</body>
+</html>
