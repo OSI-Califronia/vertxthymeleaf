@@ -10,5 +10,6 @@ public class Application {
         Vertx vertx = Vertx.vertx();
 
         vertx.deployVerticle(new ServerVerticle());
+        vertx.deployVerticle(new FileServerVerticle());
     }
 }

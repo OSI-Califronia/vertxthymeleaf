@@ -19,28 +19,19 @@ import java.util.*;
 
 
 @Slf4j
-public class ServerVerticle extends AbstractVerticle {
+public class ServerVerticle extends AbstractThymeleafVerticle {
 
     private Map<UUID, JsonObject> loggedInUsers = new HashMap<>();
 
     private HttpServer httpServer;
-    private FileSystem fileSystem;
 
     public void start(Future<Void> startFuture) {
         log.info("start http server...");
 
-        fileSystem = vertx.fileSystem();
-
         final ThymeleafTemplateEngine engine = ThymeleafTemplateEngine.create();
         final Router router = Router.router(vertx);
 
-        // register resource loaders
-        router.route(HttpMethod.GET, "/WEB-INF/images/:imageFile").handler(ctx -> {
-            loadFile(ctx, "imageFile", "WEB-INF/images/");
-        });
-        router.route(HttpMethod.GET, "/WEB-INF/css/:cssFile").handler(ctx -> {
-            loadFile(ctx, "cssFile", "WEB-INF/css/");
-        });
+        init(router);
 
         router.route().handler(CookieHandler.create());
 
@@ -146,7 +137,7 @@ public class ServerVerticle extends AbstractVerticle {
 
         // start a HTTP web server on port 8080
         httpServer = vertx.createHttpServer();
-        httpServer.requestHandler(router::accept).listen(8080);
+        httpServer.requestHandler(router::accept).listen(8181);
 
         startFuture.complete();
     }
@@ -157,24 +148,8 @@ public class ServerVerticle extends AbstractVerticle {
         httpServer.close(shutdownResult -> {
             if (shutdownResult.failed()) {
                 log.error("could not stop http Server", shutdownResult.cause());
-                return;
             }
             stopFuture.complete();
-        });
-    }
-
-
-    private void loadFile(RoutingContext ctx, final String paramName, String sourcePath) {
-        String fileName = ctx.request().getParam(paramName);
-        // Read a file
-        fileSystem.readFile(sourcePath + fileName, fileResult -> {
-            if (fileResult.failed()) {
-                log.error("could not load file", fileResult.cause());
-                ctx.fail(500);
-                return;
-            }
-            // return file
-            ctx.response().end(fileResult.result());
         });
     }
 
